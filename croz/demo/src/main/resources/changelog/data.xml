@@ -1,0 +1,99 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+<changeSet id = '001' author = 'croz'>
+    <sql>
+        CREATE TABLE joke_category
+        (
+        id UUID NOT NULL,
+        category VARCHAR(500),
+        PRIMARY KEY (id)
+        );
+    </sql>
+    <sql>
+        CREATE TABLE joke
+        (
+        id UUID NOT NULL,
+        content VARCHAR(500000),
+        likes INT,
+        dislikes INT,
+        difference INT,
+        joke_category_id UUID REFERENCES joke_category(id),
+        PRIMARY KEY (id)
+        );
+    </sql>
+    <sql>
+        INSERT INTO joke_category (
+        id, category)
+        VALUES ('b96f06b7-5013-4cf7-923e-52396379e27c', 'NSFW');
+    </sql>
+    <sql>
+        INSERT INTO joke_category (id, category) VALUES ('6aac27a8-017d-4122-a5dd-bdc48e489354', 'Blondes');
+    </sql>
+    <sql>
+        INSERT INTO joke_category (
+        id, category)
+        VALUES ('ef289a22-7432-4bff-81c4-b974be87c8e1', 'Politics');
+    </sql>
+    <sql>
+        INSERT INTO joke_category (
+        id, category)
+        VALUES ('9f1c0d6f-61c4-4d36-b065-da675404a99f', 'Balkan people and culture');
+    </sql>
+    <sql>
+        INSERT INTO joke_category (
+        id, category)
+        VALUES ('b3b78def-196b-4575-9c43-bef95eb7eda6', 'Other');
+    </sql>
+    <sql>
+        INSERT INTO joke (
+        id, content, likes, dislikes, difference, joke_category_id)
+        VALUES ('3b8e846f-0373-4c0d-99cf-85dfd439ab5f', 'Pita plavusa koliko je sati i
+        covjek joj kaze 21.45, a ona njemu je sad 100', 1, 0, 1, '6aac27a8-017d-4122-a5dd-bdc48e489354');
+    </sql>
+    <sql>
+        INSERT INTO joke (
+        id, content, likes, dislikes, difference, joke_category_id)
+        VALUES ('8439e89a-c914-46c7-9279-b014d81f91e6', 'Kosorka pita Milanovica:
+        Znas ti na sta je na engleskom I dont know?
+        Ne znam.
+        Kvragu, nitko ne zna!', 1, 0, 1, 'ef289a22-7432-4bff-81c4-b974be87c8e1');
+    </sql>
+    <sql>
+        INSERT INTO joke (
+        id, content, likes, dislikes, difference, joke_category_id)
+        VALUES ('ce6f6cc9-dcf3-4fce-986d-7792333aa580', 'Koji auto vozis ? VW Pola.
+        A nije bilo za cijeloga ?', 1, 0, 1, '9f1c0d6f-61c4-4d36-b065-da675404a99f');
+    </sql>
+    <sql>
+        INSERT INTO joke (
+        id, content, likes, dislikes, difference, joke_category_id)
+        VALUES ('26fd828a-f5ea-49fa-ae06-2609d2460e38', 'Rad cini covjeka, a nerad gospodina', 1, 0, 1,
+        '9f1c0d6f-61c4-4d36-b065-da675404a99f');
+    </sql>
+</changeSet>
+</databaseChangeLog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

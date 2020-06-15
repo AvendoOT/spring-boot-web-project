@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org/" xmlns:color="http://www.w3.org/1999/xhtml">
+<head th:replace="fragmentStyle :: head"></head>
+    <meta charset="UTF-8"/>
+    <title>Add a new joke, Comedian</title><br>
+<body class = "container">
+<h3>Come on comedian, make me laugh</h3>
+<form method="post">
+    <div class ="form-group">
+        <input th:field="${jokeForm.content}" class="form-control">
+        <p class = "alert alert-danger" role="alert" th:errors="${jokeForm.content}"></p>
+    </div>
+    <div class ="form-group">
+        <select class = "form-control" th:field="${jokeForm.category}">
+            <option th:each = "cat : ${categories}"
+                    th:value = "${cat.id}"
+                    th:text = ${cat.category}>
+            </option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add a joke" class ="btn btn-success">
+    </div>
+</form><br><br>
+<form method="get" action="/">
+    <input type="submit" value="I am not funny, get me back" class="btn btn-info">
+</form>
+</body>
+</html>

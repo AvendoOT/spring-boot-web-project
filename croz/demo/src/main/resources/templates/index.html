@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragmentStyle :: head"></head>
+<title>Them jokes</title>
+<body class="container">
+<h2>Jokes</h2>
+<p th:unless="${jokes.getContent()} and ${jokes.getContent().size()}">No jokes, add yours!</p>
+<form action='new' method = 'get'>
+    <input type = 'submit' value ='Add a joke' class="btn btn-info">
+</form><br>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>
+            No.
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Joke
+        </th>
+        <th>
+            Like
+        </th>
+        <th>
+            Dislike
+        </th>
+        <th>
+            Score
+        </th>
+    </tr>
+    </thead>
+    <tr th:each="i : ${#numbers.sequence(0,jokes.getContent().size()-1,1)}">
+        <td th:text = "${i+1}"></td>
+        <td th:text = "${jokes.getContent()[i].jokeCategory.category}"></td>
+        <td th:text = "${jokes.getContent()[i].content}"></td>
+        <td th:text = "${jokes.getContent()[i].likes}"></td>
+        <td th:text = "${jokes.getContent()[i].dislikes}"></td>
+        <td th:text="${jokes.getContent()[i].difference}"></td>
+            <td>
+                <form th:action="@{/updateLike}" method = "post">
+                <input type = "hidden" name = "id" th:value="${jokes.getContent()[i].id}"/>
+                    <input type = "hidden" name="page" th:value = "${jokes.getPageable().getPageNumber()}"/>
+                    <input type ="submit" value="Like" class="btn btn-info"/>
+                </form>
+            </td>
+            <td>
+                <form th:action = "@{/updateDislike}" method="post">
+                    <input type = "hidden" name = "id" th:value="${jokes.getContent()[i].id}"/>
+                    <input type = "hidden" name="page" th:value = "${jokes.getPageable().getPageNumber()}"/>
+                <input type="submit" value="Dislike" class = "btn btn-danger">
+                </form>
+            </td>
+    </tr>
+</table>
+<ul class="nav nav-pills">
+    <li class="nav-item" th:each="iter : ${#numbers.sequence(0, jokes.getTotalPages()-1)}">
+        <a th:href="@{/(page = ${iter})}" th:text="${iter+1}" class = "nav-link"></a>
+    </li>
+</ul>
+
+</body>
+</html>
